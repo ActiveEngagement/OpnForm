@@ -10,7 +10,7 @@
             >
               {{ appName }}</span><span
             class="bg-gray-100 text-gray-600 font-semibold inline-block ml-1 px-2 rounded-full text-black text-xs tracking-wider"
-          >BETA</span>
+          ></span>
           </router-link>
           <workspace-dropdown class="ml-6"/>
         </div>
@@ -90,7 +90,8 @@
                     </svg>
                     {{ $t('logout') }}
                   </a>
-                </dropdown>
+
+              </dropdown>
                 <div class="flex gap-2" v-else>
                   <router-link v-if="$route.name !== 'login'" :to="{ name: 'login' }"
                                class="text-gray-600 dark:text-white hover:text-gray-800 dark:hover:text-white px-0 sm:px-3 py-2 rounded-md text-sm"
@@ -98,10 +99,6 @@
                   >
                     {{ $t('login') }}
                   </router-link>
-
-                  <v-button size="small" :to="{ name: 'forms.create.guest' }" color="outline-blue" v-track.nav_create_form_click :arrow="true">
-                    Create a form
-                  </v-button>
 
                 </div>
               </div>
