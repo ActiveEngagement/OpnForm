@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('form_submissions', function (Blueprint $table) {
-            $table->jsonb('meta')->after('data')->default('{}');
+            $table->jsonb('meta')->after('data');
         });
     }
 
