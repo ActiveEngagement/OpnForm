@@ -11,11 +11,12 @@ class FormSubmission extends Model
     use HasFactory;
 
     protected $fillable = [
-        'data'
+        'data', 'meta'
     ];
 
     protected $casts = [
-        'data' => 'array'
+        'data' => 'array',
+        'meta' => 'array'
     ];
 
     /**

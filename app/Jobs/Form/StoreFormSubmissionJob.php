@@ -25,7 +25,7 @@ class StoreFormSubmissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Form $form, public array $submissionData)
+    public function __construct(public Form $form, public array $submissionData, public array $requestMeta)
     {
     }
 
@@ -39,11 +39,13 @@ class StoreFormSubmissionJob implements ShouldQueue
         $formData = $this->getFormData();
         $this->addHiddenPrefills($formData);
 
-        $this->form->submissions()->create([
+        $rec = $this->form->submissions()->create([
             'data' => $formData,
+            'meta' => $this->requestMeta,
         ]);
 
-        FormSubmitted::dispatch($this->form, $formData);
+        $this->requestMeta['id'] = $rec->id;
+        FormSubmitted::dispatch($this->form, $formData, $this->requestMeta);
     }
 
     /**
@@ -146,7 +148,7 @@ class StoreFormSubmissionJob implements ShouldQueue
         $completeNewFilename = $newPath.'/'.$fileName;
 
         Storage::disk('s3')->put($completeNewFilename, base64_decode(explode(',', $value)[1]));
-        
+
         return $fileName;
     }
 
