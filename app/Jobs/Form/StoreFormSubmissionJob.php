@@ -6,7 +6,6 @@ use App\Events\Forms\FormSubmitted;
 use App\Http\Controllers\Forms\PublicFormController;
 use App\Http\Requests\AnswerFormRequest;
 use App\Models\Forms\Form;
-use App\Models\Forms\FormSubmission;
 use App\Service\Storage\StorageFileNameParser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -29,7 +28,7 @@ class StoreFormSubmissionJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(public Form $form, public array $submissionData)
+    public function __construct(public Form $form, public array $submissionData, public array $requestMeta)
     {
     }
 
@@ -46,7 +45,8 @@ class StoreFormSubmissionJob implements ShouldQueue
         $this->storeSubmission($formData);
 
         $formData["submission_id"] = $this->submissionData['submission_id'] ?? null;
-        FormSubmitted::dispatch($this->form, $formData);
+        $this->requestMeta['id'] = $this->submissionId;
+        FormSubmitted::dispatch($this->form, $formData, $this->requestMeta);
     }
 
     public function getSubmissionId()
@@ -64,9 +64,11 @@ class StoreFormSubmissionJob implements ShouldQueue
         } else {
             $response = $this->form->submissions()->create([
                 'data' => $formData,
+                'meta' => $this->requestMeta,
             ]);
             $this->submissionId = $response->id;
         }
+        return
     }
 
     /**

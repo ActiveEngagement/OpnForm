@@ -86,7 +86,7 @@ class PublicFormController extends Controller
             $job->handle();
             $submissionId = Hashids::encode($job->getSubmissionId());
         }else{
-            StoreFormSubmissionJob::dispatch($form, $request->validated());
+            StoreFormSubmissionJob::dispatch($form, $request->validated()), $this->getMetaData($request));
         }
 
         return $this->success(array_merge([
@@ -121,5 +121,29 @@ class PublicFormController extends Controller
 
         return $this->success(['data' => ($submission) ? $submission->data : []]);
     }
+
+    /**
+     * Retrieve meta-data from the request object
+     * - submission IP address
+     * - hosted URl
+     * - any UTM codes
+     */
+    private function getMetaData($request)
+    {
+        $ref = $request->headers->get('referer');
+
+        $metadata = [
+            'url' => $ref,
+            'ip'  => $request->ip(),
+        ];
+
+        if(strpos($ref, '?')) {
+            parse_str(substr($ref, strpos($ref, '?') + 1), $tokens);
+            $metadata = $metadata + $tokens;
+        }
+
+        return $metadata;
+    }
+
 
 }
