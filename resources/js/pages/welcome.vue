@@ -15,11 +15,6 @@
               class="font-medium"
             >it's free</span>.
             </h3>
-            <div class="mt-6 flex justify-center">
-              <v-button class="mr-1" :to="{ name: 'forms.create.guest' }" :arrow="true">
-                Create a form for FREE
-              </v-button>
-            </div>
             <div class="justify-center flex gap-2 mt-10">
               <div class="flex items-center text-gray-400 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -72,11 +67,7 @@
       <div class="w-full bg-blue-900 p-12 md:p-24 text-center">
         <h4 class="font-semibold text-3xl text-white">Take your forms to the next level</h4>
         <p class="text-gray-300 my-8">No trial. Generous, unlimited free plan.</p>
-        <div class="mt-6 flex justify-center">
-          <v-button :to="{ name: 'forms.create.guest' }" v-track.welcome_create_form_click :arrow="true" color="blue">
-            Create a form for FREE
-          </v-button>
-        </div>
+
         <div class="flex justify-center mt-6">
           <a target="_blank" :href="configLinks.twitter" class="mr-4">
             <svg class="w-6 h-6 text-white" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">

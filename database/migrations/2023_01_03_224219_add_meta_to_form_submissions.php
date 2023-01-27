@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormSubmissionsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateFormSubmissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('form_submissions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(\App\Models\Forms\Form::class,'form_id');
-            $table->jsonb('data');
-            $table->timestamps();
+        Schema::table('form_submissions', function (Blueprint $table) {
+            $table->jsonb('meta')->after('data');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateFormSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_submissions');
+        Schema::table('form_submissions', function (Blueprint $table) {
+            $table->dropColumn('meta');
+        });
     }
-}
+};

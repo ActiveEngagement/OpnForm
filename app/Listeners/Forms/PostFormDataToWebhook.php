@@ -2,6 +2,7 @@
 
 namespace App\Listeners\Forms;
 
+use Arr;
 use App\Events\Forms\FormSubmitted;
 use App\Models\Forms\Form;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -22,7 +23,6 @@ class PostFormDataToWebhook implements ShouldQueue
     public function handle(FormSubmitted $event)
     {
         $form = $event->form;
-        if (!$form->is_pro) return;
         $data = $this->getWebhookData($event);
 
         $this->sendSimpleWebhook($form, $data);
@@ -65,7 +65,11 @@ class PostFormDataToWebhook implements ShouldQueue
         return [
             'form_title' => $event->form->title,
             'form_slug' => $event->form->slug,
-            'submission' => $formattedData
+            'submission_id' => $event->meta['id'],
+            'referral_url' => $event->meta['url'],
+            'submission_ip' => $event->meta['ip'],
+            'submission' => $formattedData,
+            'meta' => Arr::except($event->meta, ['id', 'url', 'ip']),
         ];
 
     }
