@@ -68,7 +68,6 @@ class StoreFormSubmissionJob implements ShouldQueue
             ]);
             $this->submissionId = $response->id;
         }
-        return
     }
 
     /**

@@ -85,8 +85,8 @@ class PublicFormController extends Controller
             $job = new StoreFormSubmissionJob($form, $request->validated());
             $job->handle();
             $submissionId = Hashids::encode($job->getSubmissionId());
-        }else{
-            StoreFormSubmissionJob::dispatch($form, $request->validated()), $this->getMetaData($request));
+        } else {
+            StoreFormSubmissionJob::dispatch($form, $request->validated(), $this->getMetaData($request));
         }
 
         return $this->success(array_merge([
