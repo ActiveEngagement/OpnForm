@@ -106,8 +106,12 @@ class FormController extends Controller
             ->processRequest($request)
             ->simulateCleaning($form->workspace)
             ->getData();
-        
+
         // Set Removed Properties
+        if(!$form->removed_properties) {
+            $form->removed_properties = [];
+        }
+
         $formData['removed_properties'] = array_merge($form->removed_properties, collect($form->properties)->filter(function ($field) use ($formData) {
             return (!Str::of($field['type'])->startsWith('nf-') && !in_array($field['id'], collect($formData['properties'])->pluck("id")->toArray()));
         })->toArray());
