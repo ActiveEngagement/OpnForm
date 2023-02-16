@@ -56,7 +56,7 @@ return [
 
     'prefix' => env(
         'HORIZON_PREFIX',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_horizon:'
+        Str::slug(env('APP_NAME', 'laravel'), '_') . '_horizon:'
     ),
 
     /*
@@ -179,48 +179,54 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'maxProcesses' => 4,
-                'balanceMaxShift' => 1,
-                'balanceCooldown' => 3,
-            ],
-            'mailcoach-general' => [
-                'connection' => 'mailcoach-redis',
-                'queue' => ['mailcoach', 'mailcoach-feedback', 'send-mail', 'send-automation-mail'],
-                'balance' => 'auto',
+                'connection' => 'redis',
+                'queue' => ['default'],
+                'balance' => 'simple',
                 'processes' => 10,
-                'tries' => 2,
-                'timeout' => 60 * 60,
-            ],
-            'mailcoach-heavy' => [
-                'connection' => 'mailcoach-redis',
-                'queue' => ['send-campaign'],
-                'balance' => 'auto',
-                'processes' => 3,
                 'tries' => 1,
-                'timeout' => 60 * 60,
             ],
+            // 'mailcoach-general' => [
+            //     'connection' => 'mailcoach-redis',
+            //     'queue' => ['mailcoach', 'mailcoach-feedback', 'send-mail', 'send-automation-mail'],
+            //     'balance' => 'auto',
+            //     'processes' => 10,
+            //     'tries' => 2,
+            //     'timeout' => 60 * 60,
+            // ],
+            // 'mailcoach-heavy' => [
+            //     'connection' => 'mailcoach-redis',
+            //     'queue' => ['send-campaign'],
+            //     'balance' => 'auto',
+            //     'processes' => 3,
+            //     'tries' => 1,
+            //     'timeout' => 60 * 60,
+            // ],
         ],
 
         'local' => [
             'supervisor-1' => [
-                'maxProcesses' => 3,
-            ],
-            'mailcoach-general' => [
-                'connection' => 'mailcoach-redis',
-                'queue' => ['mailcoach', 'mailcoach-feedback', 'send-mail', 'send-automation-mail'],
-                'balance' => 'auto',
-                'processes' => 10,
-                'tries' => 2,
-                'timeout' => 60 * 60,
-            ],
-            'mailcoach-heavy' => [
-                'connection' => 'mailcoach-redis',
-                'queue' => ['send-campaign'],
-                'balance' => 'auto',
+                'connection' => 'redis',
+                'queue' => ['default'],
+                'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 1,
-                'timeout' => 60 * 60,
             ],
+            // 'mailcoach-general' => [
+            //     'connection' => 'mailcoach-redis',
+            //     'queue' => ['mailcoach', 'mailcoach-feedback', 'send-mail', 'send-automation-mail'],
+            //     'balance' => 'auto',
+            //     'processes' => 10,
+            //     'tries' => 2,
+            //     'timeout' => 60 * 60,
+            // ],
+            // 'mailcoach-heavy' => [
+            //     'connection' => 'mailcoach-redis',
+            //     'queue' => ['send-campaign'],
+            //     'balance' => 'auto',
+            //     'processes' => 3,
+            //     'tries' => 1,
+            //     'timeout' => 60 * 60,
+            // ],
         ],
     ],
 ];

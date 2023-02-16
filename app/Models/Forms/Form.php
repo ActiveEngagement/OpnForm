@@ -24,6 +24,11 @@ class Form extends Model
 
     use HasFactory, HasSlug, SoftDeletes;
 
+    protected $attributes = [
+        'tags' => '[]',
+        'removed_properties' => '[]'
+    ];
+
     protected $fillable = [
         'workspace_id',
         'creator_id',

@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         FormCreated::class => [
-            FormCreationConfirmation::class
+            // FormCreationConfirmation::class
         ],
         FormSubmitted::class => [
             NotifyFormSubmission::class,
