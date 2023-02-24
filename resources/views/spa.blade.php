@@ -26,17 +26,17 @@
   <link rel="icon" href="{{asset('/img/logo.svg')}}">
 
   @if($meta)
-    <title>{{$meta['title']}}</title>
-    <meta name='description' content='{{$meta['description']}}'>
+    <!-- title>{{$meta['title']}}</title -->
+    <!-- meta name='description' content='{{$meta['description']}}' -->
 
-    <meta name='og:title' content='{{$meta['title']}}'>
-    <meta name='og:description' content='{{$meta['description']}}'>
-    <meta name='og:image' content='{{$meta['image']}}'>
-    <meta name='og:site_name' content='OpenForm'>
+    <!-- meta name='og:title' content='{{$meta['title']}}' -->
+    <!-- meta name='og:description' content='{{$meta['description']}}' -->
+    <!-- meta name='og:image' content='{{$meta['image']}}' -->
+    <!-- meta name='og:site_name' content='OpenForm' -->
 
-    <meta name="twitter:title" content="{{$meta['title']}}">
-    <meta name="twitter:description" content="{{$meta['description']}}">
-    <meta name="twitter:image" content="{{$meta['image']}}">
+    <!-- meta name="twitter:title" content="{{$meta['title']}}" -->
+    <!-- meta name="twitter:description" content="{{$meta['description']}}" -->
+    <!-- meta name="twitter:image" content="{{$meta['image']}}" -->
   @endif
 
 </head>
